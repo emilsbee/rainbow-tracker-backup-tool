@@ -1,6 +1,7 @@
 import {DateTime} from "luxon"
 import shell from "shelljs"
 import * as path from "path";
+import * as console from "console";
 require('dotenv').config()
 
 const currentDate: string = DateTime.now().toFormat("dd-MM-yyyy")
@@ -13,6 +14,12 @@ if (pgDumpOutput.code !== 0) {
     shell.exit(1)
 }
 
+const checkIfRemoteFileExistsOutput = shell.exec(`ssh ${process.env.BACKUP_MACHINE_USER}@${process.env.BACKUP_MACHINE_IP}  test -f  ${path.join(process.env.BACKUP_MACHINE_ABSOLUTE_PATH, fileName)}`)
+console.log(checkIfRemoteFileExistsOutput.code)
+if (checkIfRemoteFileExistsOutput.code !== 0) {
+    shell.echo("check remote file command failed. Error: " + " " + checkIfRemoteFileExistsOutput.stderr + " Output: " + " " + checkIfRemoteFileExistsOutput.stdout)
+    shell.exit(1)
+}
 
 const rsyncOutput = shell.exec(`rsync ${path.join(__dirname, fileName)} ${process.env.BACKUP_MACHINE_USER}@${process.env.BACKUP_MACHINE_IP}:${process.env.BACKUP_MACHINE_ABSOLUTE_PATH}`)
 
