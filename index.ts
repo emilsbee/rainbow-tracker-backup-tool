@@ -14,9 +14,7 @@ if (pgDumpOutput.code !== 0) {
     shell.exit(1)
 }
 
-shell.echo(process.env.BACKUP_MACHINE_ABSOLUTE_PATH)
-
-const checkIfRemoteFileExistsOutput = shell.exec(`ssh ${process.env.BACKUP_MACHINE_USER}@${process.env.BACKUP_MACHINE_IP}  test -f  ${path.join(process.env.BACKUP_MACHINE_ABSOLUTE_PATH, fileName)}`)
+const checkIfRemoteFileExistsOutput = shell.exec(`ssh ${process.env.BACKUP_MACHINE_USER}@${process.env.BACKUP_MACHINE_IP}  test -f  ${process.env.BACKUP_MACHINE_ABSOLUTE_PATH + "/" +fileName}`)
 
 if (checkIfRemoteFileExistsOutput.code !== 0) {
     shell.echo("check remote file command failed. Error: " + " " + checkIfRemoteFileExistsOutput.stderr + " Output: " + " " + checkIfRemoteFileExistsOutput.stdout)
