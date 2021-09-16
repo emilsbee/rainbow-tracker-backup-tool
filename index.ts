@@ -1,6 +1,5 @@
 import {DateTime} from "luxon"
 import shell from "shelljs"
-import * as process from "process";
 
 let currentDate = DateTime.now().toFormat("dd-MM-yyyy")
 
