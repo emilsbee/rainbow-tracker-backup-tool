@@ -1,5 +1,6 @@
 import {DateTime} from "luxon"
 import shell from "shelljs"
+require('dotenv').config()
 
 let currentDate = DateTime.now().toFormat("dd-MM-yyyy")
 
