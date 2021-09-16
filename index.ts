@@ -20,3 +20,19 @@ if (rsyncOutput.code !== 0) {
     shell.echo("rsync command failed. Error: " + " " + rsyncOutput.stderr + " Output: " + " " + rsyncOutput.stdout)
     shell.exit(1)
 }
+
+
+const moveBackupOutput = shell.exec(`mv ${fileName} ${process.env.LOCAL_BACKUP_RELATIVE_PATH}`)
+
+if (moveBackupOutput.code !== 0) {
+    shell.echo("mv backup command failed. Error: " + " " + moveBackupOutput.stderr + " Output: " + " " + moveBackupOutput.stdout)
+    shell.exit(1)
+}
+
+
+const deleteBackupLocalOutput = shell.exec(`rm ${fileName}`)
+
+if (deleteBackupLocalOutput.code !== 0) {
+    shell.echo("rm backup command failed. Error: " + " " + deleteBackupLocalOutput.stderr + " Output: " + " " + deleteBackupLocalOutput.stdout)
+    shell.exit(1)
+}
