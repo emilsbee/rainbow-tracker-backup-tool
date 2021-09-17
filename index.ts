@@ -12,7 +12,6 @@ const fileName: string = `${currentDate}.sql`
 const pgDumpOutput = shell.exec(`pg_dump -U ${process.env.PG_USER} ${process.env.PG_DATABASE} > ${fileName}`)
 
 if (pgDumpOutput.code !== 0) {
-    shell.echo("pg_dump command failed. Error: " + " " + pgDumpOutput.stderr + " Output: " + " " + pgDumpOutput.stdout)
     shell.exit(1)
 }
 
