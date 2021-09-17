@@ -24,8 +24,7 @@ const checkIfRemoteFileExistsOutput = shell.exec(`ssh ${process.env.BACKUP_MACHI
 if (checkIfRemoteFileExistsOutput.code === 0) {
     shell.echo(`file ${fileName} already exists on host ${process.env.BACKUP_MACHINE_IP} user ${process.env.BACKUP_MACHINE_USER}`)
     shell.exit(1)
-} else if (checkIfRemoteFileExistsOutput.code === 2) {
-    shell.echo("ssh command failed. Error: " + " " + checkIfRemoteFileExistsOutput.stderr + " Output: " + " " + checkIfRemoteFileExistsOutput.stdout)
+} else if (checkIfRemoteFileExistsOutput.code > 1) {
     shell.exit(1)
 }
 
