@@ -1,3 +1,4 @@
+#!/usr/bin/env node
 import {DateTime} from "luxon"
 import shell from "shelljs"
 import * as path from "path";
